@@ -29,12 +29,11 @@ class _VerseListScreenState extends State<VerseListScreen> {
   }
 
   Future<void> _getVerses() async {
-    final int chapterNumber = int.tryParse(widget.chapterNumber) ?? 1;
-    print(chapterNumber);
+    print(widget.chapterNumber);
     verseList = await ApiService.getVerses(
       widget.bibleVersionID,
       widget.bibleBookID,
-      chapterNumber,
+      widget.chapterNumber,
     );
     setState(() {});
   }

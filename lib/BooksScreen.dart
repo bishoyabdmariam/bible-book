@@ -8,7 +8,7 @@ class BookListScreen extends StatefulWidget {
   final String bibleVersionID;
   final String abbreviation;
 
-  BookListScreen({required this.bibleVersionID, required this.abbreviation});
+  BookListScreen({super.key, required this.bibleVersionID, required this.abbreviation,});
 
   @override
   _BookListScreenState createState() => _BookListScreenState();
@@ -35,36 +35,37 @@ class _BookListScreenState extends State<BookListScreen> {
         title: const Text('Select a Book'),
       ),
       body: bookList.isEmpty
-          ? Center(
-        child: CircularProgressIndicator(),
-      )
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.builder(
-        itemCount: bookList.length,
-        itemBuilder: (context, index) {
-          final book = bookList[index];
-          return Card(
-            elevation: 2.0,
-            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: ListTile(
-              title: Text(
-                book.name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ChapterListScreen(
-                      bibleVersionID: widget.bibleVersionID,
-                      abbreviation: widget.abbreviation,
-                      bibleBookID: book.id, // Replace with the actual book ID
+              itemCount: bookList.length,
+              itemBuilder: (context, index) {
+                final book = bookList[index];
+                return Card(
+                  elevation: 2.0,
+                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: ListTile(
+                    title: Text(
+                      book.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
                     ),
-                  ),
-                );
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ChapterListScreen(
+                            bibleVersionID: widget.bibleVersionID,
+                            abbreviation: widget.abbreviation,
+                            bibleBookID:
+                                book.id, // Replace with the actual book ID
+                          ),
+                        ),
+                      );
 
-                /*Navigator.push(
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ChapterScreen(
@@ -74,11 +75,11 @@ class _BookListScreenState extends State<BookListScreen> {
                           ),
                         ),
                       );*/
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
-      ),
     );
   }
 }

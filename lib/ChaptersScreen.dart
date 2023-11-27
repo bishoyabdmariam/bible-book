@@ -9,7 +9,7 @@ class ChapterListScreen extends StatefulWidget {
   final String abbreviation;
   final String bibleBookID;
 
-  ChapterListScreen({
+  const ChapterListScreen({
     super.key,
     required this.bibleVersionID,
     required this.abbreviation,

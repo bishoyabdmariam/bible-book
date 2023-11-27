@@ -4,14 +4,16 @@ import 'BooksScreen.dart';
 import 'models/bible.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: const HomeScreen(),
       theme: ThemeData(
         // Add your desired background color here
         scaffoldBackgroundColor: Colors.grey[200],
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -47,21 +51,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: bibleVersions.isEmpty
           ? const Center(
-        child: CircularProgressIndicator(),
-      )
+              child: CircularProgressIndicator(),
+            )
           : BibleVersionList(
-        bibleVersions: bibleVersions,
-        onVersionSelected: (version) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BookListScreen(
-                bibleVersionID: version.id!,
-                abbreviation: version.abbreviation!,
-              ),
+              bibleVersions: bibleVersions,
+              onVersionSelected: (version) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BookListScreen(
+                      bibleVersionID: version.id!,
+                      abbreviation: version.abbreviation!,
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
@@ -70,7 +74,7 @@ class BibleVersionList extends StatelessWidget {
   final List<BibleVersion> bibleVersions;
   final Function(BibleVersion) onVersionSelected;
 
-  BibleVersionList({
+  const BibleVersionList({
     Key? key,
     required this.bibleVersions,
     required this.onVersionSelected,
@@ -85,7 +89,7 @@ class BibleVersionList extends StatelessWidget {
         return Card(
           color: Colors.white, // Add your desired card color here
           elevation: 2.0, // Add elevation for a subtle shadow
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: ListTile(
             title: Text(version.name ?? "No Name"),
             subtitle: Text(version.description ?? "No description"),
