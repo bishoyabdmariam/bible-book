@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:bible/versedetail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/bible.dart';
+import '../models/VerseDetails.dart';
 import '../models/book.dart';
 import '../models/chapter.dart';
 import '../models/section.dart';
@@ -9,7 +11,7 @@ import '../models/verse.dart'; // Add this import for Section model
 
 class ApiService {
   static const String apiKey =
-      'b408dfc9ba8475d7be9be4aedf728383'; // Replace with your actual API key
+      '6f48c25d67586da51a2c65f8899bceca'; // Replace with your actual API key
   static const String baseUrl = 'https://api.scripture.api.bible/v1/bibles';
 
   static Future<List<BibleVersion>> getBibleVersions() async {
@@ -133,9 +135,9 @@ class ApiService {
   }
 
   static Future<List<Verse>> getVerses(
-      String bibleVersionID, String bibleBookID, String chapterNumber) async {
+      String bibleVersionID, String bibleBookID, int chapterNumber) async {
     final String apiUrl =
-        '$baseUrl/$bibleVersionID/books/$bibleBookID/chapters/$chapterNumber/verses';
+        '$baseUrl/$bibleBookID/chapters/$chapterNumber/verses';
     try {
       final response = await http.get(Uri.parse(apiUrl), headers: {
         'api-key': apiKey,
@@ -147,16 +149,32 @@ class ApiService {
           return Verse.fromJson(data);
         }).toList();
       } else {
-        if (kDebugMode) {
-          print('Failed to load verses: ${response.statusCode}');
-        }
+        print('Failed to load verses: ${response.statusCode}');
         return [];
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching verses: $error ${error.toString()}');
-      }
+      print('Error fetching verses: $error');
       return [];
+    }
+  }
+
+  static Future<VerseDetails> getSelectedVerse(
+      String bibleVersionID, String bibleVerseID) async {
+    final String apiUrl =
+        '$baseUrl/$bibleVersionID/verses/$bibleVerseID?include-chapter-numbers=false&include-verse-numbers=false';
+    try {
+      final response = await http.get(Uri.parse(apiUrl), headers: {
+        'api-key': apiKey,
+      });
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body)['data'];
+        return VerseDetails.fromJson(data);
+      } else {
+        throw Exception('Failed to load selected verse: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Error fetching selected verse: $error');
     }
   }
 }

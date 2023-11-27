@@ -33,7 +33,7 @@ class _VerseListScreenState extends State<VerseListScreen> {
     verseList = await ApiService.getVerses(
       widget.bibleVersionID,
       widget.bibleBookID,
-      widget.chapterNumber,
+       int.tryParse(widget.chapterNumber) ?? 1,
     );
     setState(() {});
   }
