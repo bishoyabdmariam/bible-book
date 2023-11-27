@@ -8,7 +8,7 @@ class BookListScreen extends StatefulWidget {
   final String bibleVersionID;
   final String abbreviation;
 
-  BookListScreen({super.key, required this.bibleVersionID, required this.abbreviation,});
+  const BookListScreen({super.key, required this.bibleVersionID, required this.abbreviation,});
 
   @override
   _BookListScreenState createState() => _BookListScreenState();

@@ -9,7 +9,7 @@ class VerseListScreen extends StatefulWidget {
   final String bibleBookID;
   final String chapterNumber;
 
-  VerseListScreen({
+  const VerseListScreen({super.key,
     required this.bibleVersionID,
     required this.bibleBookID,
     required this.chapterNumber,

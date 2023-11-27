@@ -8,7 +8,7 @@ class SectionListScreen extends StatefulWidget {
   final String abbreviation;
   final String bibleBookID;
 
-  SectionListScreen({
+  SectionListScreen({super.key,
     required this.bibleVersionID,
     required this.abbreviation,
     required this.bibleBookID,
@@ -51,12 +51,12 @@ class _SectionListScreenState extends State<SectionListScreen> {
           final section = sectionList[index];
           return Card(
             elevation: 2.0,
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ListTile(
-              contentPadding: EdgeInsets.all(16.0),
+              contentPadding: const EdgeInsets.all(16.0),
               title: Text(
                 'Section ${section.id}: ${section.title}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
