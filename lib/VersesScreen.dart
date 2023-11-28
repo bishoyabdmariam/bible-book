@@ -33,7 +33,7 @@ class _VerseListScreenState extends State<VerseListScreen> {
     verseList = await ApiService.getVerses(
       widget.bibleVersionID,
       widget.bibleBookID,
-       int.tryParse(widget.chapterNumber) ?? 1,
+        widget.chapterNumber,
     );
     setState(() {});
   }
@@ -54,7 +54,7 @@ class _VerseListScreenState extends State<VerseListScreen> {
                 final verse = verseList[index];
                 return ListTile(
                   title: Text('Verse ${verse.number}'),
-                  subtitle: Text(verse.text),
+                  subtitle: Text(verse.text??"There is no Text"),
                   onTap: () {
                     // Implement your desired action when a verse is selected
                   },

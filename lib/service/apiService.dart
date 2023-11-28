@@ -135,9 +135,10 @@ class ApiService {
   }
 
   static Future<List<Verse>> getVerses(
-      String bibleVersionID, String bibleBookID, int chapterNumber) async {
+      String bibleVersionID, String bibleBookID, String chapterNumber) async {
     final String apiUrl =
-        '$baseUrl/$bibleBookID/chapters/$chapterNumber/verses';
+        '$baseUrl/$bibleVersionID/chapters/$chapterNumber/verses';
+    print(apiUrl);
     try {
       final response = await http.get(Uri.parse(apiUrl), headers: {
         'api-key': apiKey,
@@ -149,14 +150,19 @@ class ApiService {
           return Verse.fromJson(data);
         }).toList();
       } else {
-        print('Failed to load verses: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Failed to load verses: ${response.statusCode}');
+        }
         return [];
       }
     } catch (error) {
-      print('Error fetching verses: $error');
+      if (kDebugMode) {
+        print('Error fetching verses: $error');
+      }
       return [];
     }
   }
+
 
   static Future<VerseDetails> getSelectedVerse(
       String bibleVersionID, String bibleVerseID) async {
