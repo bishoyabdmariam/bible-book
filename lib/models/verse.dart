@@ -1,9 +1,18 @@
 // models/verse.dart
 
+
+/*{
+      "id": "GEN.2.1",
+      "orgId": "GEN.2.1",
+      "bookId": "GEN",
+      "chapterId": "GEN.2",
+      "bibleId": "b17e246951402e50-01",
+      "reference": "التكوين 2:1"
+    },
+    */
+
 class Verse {
   final String? id;
-  final String? number;
-  final String? text;
   final String? bookId;
   final String? chapterId;
   final String? bibleId;
@@ -11,8 +20,6 @@ class Verse {
 
   Verse({
     required this.id,
-    required this.number,
-    required this.text,
     required this.bookId,
     required this.chapterId,
     required this.bibleId,
@@ -22,8 +29,6 @@ class Verse {
   factory Verse.fromJson(Map<String, dynamic> json) {
     return Verse(
       id: json["id"],
-      number: json["number"],
-      text: json["text"],
       bookId: json["bookId"],
       chapterId: json["chapterId"],
       bibleId: json["bibleId"],

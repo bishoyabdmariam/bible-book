@@ -146,6 +146,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body)['data'];
+        print(data);
         return data.map((data) {
           return Verse.fromJson(data);
         }).toList();
@@ -163,11 +164,11 @@ class ApiService {
     }
   }
 
-
   static Future<VerseDetails> getSelectedVerse(
       String bibleVersionID, String bibleVerseID) async {
     final String apiUrl =
-        '$baseUrl/$bibleVersionID/verses/$bibleVerseID?include-chapter-numbers=false&include-verse-numbers=false';
+        '$baseUrl/$bibleVersionID/verses/$bibleVerseID?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false&use-org-id=false';
+
     try {
       final response = await http.get(Uri.parse(apiUrl), headers: {
         'api-key': apiKey,
@@ -183,4 +184,5 @@ class ApiService {
       throw Exception('Error fetching selected verse: $error');
     }
   }
+
 }

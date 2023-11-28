@@ -1,19 +1,18 @@
-// screens/VerseListScreen.dart
-
 import 'package:flutter/material.dart';
-import 'models/verse.dart'; // Import the Verse model
-import 'service/apiService.dart';
+import 'package:bible/models/verse.dart'; // Import the updated Verse model
+import 'package:bible/service/apiService.dart';
 
 class VerseListScreen extends StatefulWidget {
   final String bibleVersionID;
   final String bibleBookID;
   final String chapterNumber;
 
-  const VerseListScreen({super.key,
+  const VerseListScreen({
+    Key? key,
     required this.bibleVersionID,
     required this.bibleBookID,
     required this.chapterNumber,
-  });
+  }) : super(key: key);
 
   @override
   _VerseListScreenState createState() => _VerseListScreenState();
@@ -33,7 +32,7 @@ class _VerseListScreenState extends State<VerseListScreen> {
     verseList = await ApiService.getVerses(
       widget.bibleVersionID,
       widget.bibleBookID,
-        widget.chapterNumber,
+      widget.chapterNumber,
     );
     setState(() {});
   }
@@ -53,9 +52,9 @@ class _VerseListScreenState extends State<VerseListScreen> {
               itemBuilder: (context, index) {
                 final verse = verseList[index];
                 return ListTile(
-                  title: Text('Verse ${verse.number}'),
-                  subtitle: Text(verse.text??"There is no Text"),
+                  title: Text(verse.reference!),
                   onTap: () {
+
                     // Implement your desired action when a verse is selected
                   },
                 );
