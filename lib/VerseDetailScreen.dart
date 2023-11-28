@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 import 'models/VerseDetails.dart';
 
 class VerseDetailScreen extends StatefulWidget {
-  final String bibleVersionID;
-  final String abbreviation;
+  final String bibleBookID;
   final String bibleVerseID;
 
-  VerseDetailScreen({
-    required this.bibleVersionID,
-    required this.abbreviation,
+  const VerseDetailScreen({super.key,
+    required this.bibleBookID,
     required this.bibleVerseID,
   });
 
@@ -31,7 +29,7 @@ class _VerseDetailScreenState extends State<VerseDetailScreen> {
 
   Future<VerseDetails> _getSelectedVerse() async {
     try {
-      return ApiService.getSelectedVerse(widget.bibleVersionID, widget.bibleVerseID);
+      return ApiService.getSelectedVerse(widget.bibleBookID, widget.bibleVerseID);
     } catch (error) {
       throw error;
     }
@@ -41,13 +39,13 @@ class _VerseDetailScreenState extends State<VerseDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verse Detail'),
+        title: const Text('Verse Detail'),
       ),
       body: FutureBuilder<VerseDetails>(
         future: _verse,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {

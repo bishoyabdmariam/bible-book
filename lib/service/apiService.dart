@@ -165,9 +165,9 @@ class ApiService {
   }
 
   static Future<VerseDetails> getSelectedVerse(
-      String bibleVersionID, String bibleVerseID) async {
+      String bibleBookID, String bibleVerseID) async {
     final String apiUrl =
-        '$baseUrl/$bibleVersionID/verses/$bibleVerseID?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false&use-org-id=false';
+        '$baseUrl/$bibleBookID/verses/$bibleVerseID?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false&use-org-id=false';
 
     try {
       final response = await http.get(Uri.parse(apiUrl), headers: {
@@ -176,11 +176,13 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body)['data'];
+        print(data);
         return VerseDetails.fromJson(data);
       } else {
         throw Exception('Failed to load selected verse: ${response.statusCode}');
       }
     } catch (error) {
+      print(error.toString());
       throw Exception('Error fetching selected verse: $error');
     }
   }

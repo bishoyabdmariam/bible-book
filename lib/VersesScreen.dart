@@ -1,3 +1,5 @@
+import 'package:bible/VerseDetailScreen.dart';
+import 'package:bible/versedetail.dart';
 import 'package:flutter/material.dart';
 import 'package:bible/models/verse.dart'; // Import the updated Verse model
 import 'package:bible/service/apiService.dart';
@@ -54,8 +56,13 @@ class _VerseListScreenState extends State<VerseListScreen> {
                 return ListTile(
                   title: Text(verse.reference!),
                   onTap: () {
-
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+                    VerseDetailScreen(
+                      bibleBookID: widget.bibleBookID,
+                      bibleVerseID: verse.id!,
+                    )
                     // Implement your desired action when a verse is selected
+                    ));
                   },
                 );
               },
