@@ -1,3 +1,4 @@
+/*
 import '../models/bible.dart';
 
 class VersionSorter {
@@ -20,6 +21,9 @@ class VersionSorter {
         return nameA.compareTo(nameB);
       });
     }
+    print("A7A");
+    print(sortedVersions.length);
     return sortedVersions;
   }
 }
+*/

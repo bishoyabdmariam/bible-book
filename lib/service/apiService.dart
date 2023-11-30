@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static const String apiKey =
-      '350d5e25135cb0bae9b5465ee1e1c9ef'; // Replace with your actual API key
+      '77385a1df35807db3824e3621c8ccb23'; // Replace with your actual API key
   static const String baseUrl = 'https://api.scripture.api.bible/v1/bibles';
 
   static Future<List<BibleVersion>> getBibleVersions() async {

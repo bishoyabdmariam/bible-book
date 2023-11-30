@@ -4,7 +4,7 @@ import 'BooksScreen.dart';
 import '../models/bible.dart';
 
 class BibleListScreen extends StatefulWidget {
-  const BibleListScreen({super.key, });
+  const BibleListScreen({Key? key}) : super(key: key);
 
   @override
   BibleListScreenState createState() => BibleListScreenState();
@@ -26,50 +26,61 @@ class BibleListScreenState extends State<BibleListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return bibleVersions.isEmpty
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : ListView.builder(
-            itemCount: bibleVersions.length,
-            itemBuilder: (context, index) {
-              final languageMap = bibleVersions[index].language;
-              final language = languageMap?['name'] ?? "Unknown Language";
-              final languageBibles = bibleVersions
-                  .where((version) =>
-                      version.language?['name'] == languageMap?['name'])
-                  .toList();
-              return Card(
-                color: Colors.grey[200],
-                elevation: 2.0,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: Text(language),
+    if (bibleVersions.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    // Extract unique languages
+    Set<String> uniqueLanguages = {};
+    for (var version in bibleVersions) {
+      final language = version.language?['name'] ?? "Unknown Language";
+      uniqueLanguages.add(language);
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bible Versions'),
+      ),
+      body: ListView.builder(
+        itemCount: uniqueLanguages.length,
+        itemBuilder: (context, index) {
+          final language = uniqueLanguages.elementAt(index);
+          final languageBibles = bibleVersions
+              .where((version) => version.language?['name'] == language)
+              .toList();
 
-                    ),
-                    BibleVersionList(
-                      bibleVersions: languageBibles,
-                      onVersionSelected: (version) {
-                        version.scriptDirection=="LTR" ?
-                        LanguagePreferences.setLanguage(TextDirection.ltr) : LanguagePreferences.setLanguage(TextDirection.rtl);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => BookListScreen(
-                              bibleVersionID: version.id!,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+          return Card(
+            color: Colors.grey[200],
+            elevation: 2.0,
+            margin:
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  title: Text(language),
                 ),
-              );
-            },
+                BibleVersionList(
+                  bibleVersions: languageBibles,
+                  onVersionSelected: (version) {
+                    version.scriptDirection == "LTR"
+                        ? LanguagePreferences.setLanguage(TextDirection.ltr)
+                        : LanguagePreferences.setLanguage(TextDirection.rtl);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BookListScreen(
+                          bibleVersionID: version.id!,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           );
+        },
+      ),
+    );
   }
 }
 
