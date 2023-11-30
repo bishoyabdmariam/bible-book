@@ -30,9 +30,8 @@ class _VerseListScreenState extends State<VerseListScreen> {
 
   Future<void> _getVerses() async {
     verseList = await ApiService.getVerses(
-      widget.bibleVersionID,
-      widget.bibleBookID,
-      widget.chapterNumber,
+      bibleVersionID: widget.bibleVersionID,
+      chapterNumber: widget.chapterNumber,
     );
     setState(() {});
   }

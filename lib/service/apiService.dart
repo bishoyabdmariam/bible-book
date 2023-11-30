@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static const String apiKey =
-      '77385a1df35807db3824e3621c8ccb23'; // Replace with your actual API key
+      '17b41645555d5aecd782d0f37e25174b'; // Replace with your actual API key
   static const String baseUrl = 'https://api.scripture.api.bible/v1/bibles';
 
   static Future<List<BibleVersion>> getBibleVersions() async {
@@ -143,7 +143,7 @@ class ApiService {
   }
 
   static Future<List<Verse>> getVerses(
-      String bibleVersionID, String bibleBookID, String chapterNumber) async {
+      {required String bibleVersionID,required String chapterNumber}) async {
     final String apiUrl =
         '$baseUrl/$bibleVersionID/chapters/$chapterNumber/verses';
     try {
@@ -191,6 +191,48 @@ class ApiService {
       throw Exception('Error fetching selected verse: $error');
     }
   }
+// apiService.dart
+
+  static Future<List<VerseDetails>> getVersesWithDetails({
+    required String bibleVersionID,
+    required String chapterNumber,
+  }) async {
+    final String apiUrl =
+        '$baseUrl/$bibleVersionID/chapters/$chapterNumber/verses';
+    try {
+      final response = await http.get(Uri.parse(apiUrl), headers: {
+        'api-key': apiKey,
+      });
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body)['data'];
+        final List<VerseDetails> versesWithDetails = [];
+
+        for (final verseData in data) {
+          final VerseDetails verseDetails = await getSelectedVerse(
+            bibleVersionID,
+            verseData['id'],
+          );
+          versesWithDetails.add(verseDetails);
+        }
+
+        return versesWithDetails;
+      } else {
+        if (kDebugMode) {
+          print('Failed to load verses: ${response.statusCode}');
+        }
+        return [];
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error fetching verses: $error');
+      }
+      return [];
+    }
+  }
+
+
+
 }
 
 
@@ -212,4 +254,5 @@ class LanguagePreferences {
     String languageCode = languageDirection == TextDirection.rtl ? 'RTL' : 'LTR';
     await _prefs.setString('languageDir', languageCode);
   }
+
 }
