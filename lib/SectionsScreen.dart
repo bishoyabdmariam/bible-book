@@ -8,7 +8,7 @@ class SectionListScreen extends StatefulWidget {
   final String abbreviation;
   final String bibleBookID;
 
-  SectionListScreen({super.key,
+  const SectionListScreen({super.key,
     required this.bibleVersionID,
     required this.abbreviation,
     required this.bibleBookID,

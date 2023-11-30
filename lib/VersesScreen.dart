@@ -1,5 +1,4 @@
 import 'package:bible/VerseDetailScreen.dart';
-import 'package:bible/versedetail.dart';
 import 'package:flutter/material.dart';
 import 'package:bible/models/verse.dart'; // Import the updated Verse model
 import 'package:bible/service/apiService.dart';
@@ -30,7 +29,6 @@ class _VerseListScreenState extends State<VerseListScreen> {
   }
 
   Future<void> _getVerses() async {
-    print(widget.chapterNumber);
     verseList = await ApiService.getVerses(
       widget.bibleVersionID,
       widget.bibleBookID,

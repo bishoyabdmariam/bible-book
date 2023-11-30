@@ -2,7 +2,6 @@ import 'package:bible/VersesScreen.dart';
 import 'package:bible/service/apiService.dart';
 import 'package:flutter/material.dart';
 
-import 'SectionsScreen.dart';
 import 'models/chapter.dart';
 
 class ChapterListScreen extends StatefulWidget {
@@ -16,10 +15,10 @@ class ChapterListScreen extends StatefulWidget {
   });
 
   @override
-  _ChapterListScreenState createState() => _ChapterListScreenState();
+  ChapterListScreenState createState() => ChapterListScreenState();
 }
 
-class _ChapterListScreenState extends State<ChapterListScreen> {
+class ChapterListScreenState extends State<ChapterListScreen> {
   List<Chapter> chapterList = [];
 
   @override
@@ -63,9 +62,6 @@ class _ChapterListScreenState extends State<ChapterListScreen> {
                       ),
                     ),
                     onTap: () {
-                      print("this ${chapter.number}");
-                      print("thisis  ${widget.bibleVersionID}");
-                      print("thisisis  ${widget.bibleBookID}");
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => VerseListScreen(

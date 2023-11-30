@@ -4,13 +4,13 @@ import 'BooksScreen.dart';
 import 'models/bible.dart';
 
 class BibleListScreen extends StatefulWidget {
-  const BibleListScreen({Key? key});
+  const BibleListScreen({super.key, });
 
   @override
-  _BibleListScreenState createState() => _BibleListScreenState();
+  BibleListScreenState createState() => BibleListScreenState();
 }
 
-class _BibleListScreenState extends State<BibleListScreen> {
+class BibleListScreenState extends State<BibleListScreen> {
   List<BibleVersion> bibleVersions = [];
 
   @override

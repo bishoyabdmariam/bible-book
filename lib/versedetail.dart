@@ -37,7 +37,7 @@ class VerseDetail extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: HtmlWidget(
                   verse.content,
-                  textStyle: TextStyle(fontSize: 20),
+                  textStyle: const TextStyle(fontSize: 20),
                 ),
               ),
             ],

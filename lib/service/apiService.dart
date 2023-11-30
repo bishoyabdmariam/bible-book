@@ -146,7 +146,6 @@ class ApiService {
       String bibleVersionID, String bibleBookID, String chapterNumber) async {
     final String apiUrl =
         '$baseUrl/$bibleVersionID/chapters/$chapterNumber/verses';
-    print(apiUrl);
     try {
       final response = await http.get(Uri.parse(apiUrl), headers: {
         'api-key': apiKey,
@@ -154,7 +153,6 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body)['data'];
-        print(data);
         return data.map((data) {
           return Verse.fromJson(data);
         }).toList();
@@ -184,14 +182,12 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body)['data'];
-        print(data);
         return VerseDetails.fromJson(data);
       } else {
         throw Exception(
             'Failed to load selected verse: ${response.statusCode}');
       }
     } catch (error) {
-      print(error.toString());
       throw Exception('Error fetching selected verse: $error');
     }
   }

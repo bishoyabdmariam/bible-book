@@ -10,10 +10,10 @@ class BookListScreen extends StatefulWidget {
   const BookListScreen({super.key, required this.bibleVersionID,});
 
   @override
-  _BookListScreenState createState() => _BookListScreenState();
+  BookListScreenState createState() => BookListScreenState();
 }
 
-class _BookListScreenState extends State<BookListScreen> {
+class BookListScreenState extends State<BookListScreen> {
   List<Book> bookList = [];
 
   TextDirection textDirection = LanguagePreferences.getLanguage();
