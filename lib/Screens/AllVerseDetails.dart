@@ -23,11 +23,17 @@ class AllVerseDetailScreen extends StatefulWidget {
 
 class _AllVerseDetailScreenState extends State<AllVerseDetailScreen> {
   late Future<List<VerseDetails>> _verses;
+  late List<VerseDetails> _loadedVerses;
+  int _loadedVerseCount = 0;
 
   @override
   void initState() {
     super.initState();
-    _verses = _getVersesWithDetails();
+    _loadedVerses = [];
+    _verses = _getVersesWithDetails().then((verses) {
+      _loadMoreVerses(); // Load more verses after the initial list is fetched
+      return verses;
+    });
   }
 
   Future<List<VerseDetails>> _getVersesWithDetails() async {
@@ -41,37 +47,65 @@ class _AllVerseDetailScreenState extends State<AllVerseDetailScreen> {
     }
   }
 
+  void _loadMoreVerses() {
+    final remainingVerses = _verses.then((verses) {
+      if (_loadedVerseCount < verses.length) {
+
+        final endIndex = _loadedVerseCount + 1; // Load next 10 verses
+        setState(() {
+        });
+        return verses.sublist(_loadedVerseCount, endIndex);
+
+      }
+      return [];
+    });
+
+    remainingVerses.then((verses) {
+      if(verses.isNotEmpty) {
+          _loadedVerses.add(verses.first);
+          _loadedVerseCount += 1;
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Verses'),
       ),
-      body: FutureBuilder<List<VerseDetails>>(
-        future: _verses,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            List<VerseDetails> verses = snapshot.data!;
-            return ListView.builder(
-              itemCount: verses.length,
-              itemBuilder: (context, index) {
-                VerseDetails verse = verses[index];
-                return Directionality(
-                  textDirection: LanguagePreferences.getLanguage(),
-                  child: ListTile(
-                    title: Text(verse.reference),
-                    subtitle: HtmlWidget(verse.content),
-                    onTap: () {},
-                  ),
-                );
-              },
-            );
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+            _loadMoreVerses(); // Load more verses when reaching the end of the list
+            setState(() {});
           }
+          setState(() {});
+          return true;
         },
+        child: FutureBuilder<List<VerseDetails>>(
+          future: _verses,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return ListView.builder(
+                // Experiment with different values to find the optimal one
+                itemCount: _loadedVerses.length,
+                itemBuilder: (context, index) {
+                  VerseDetails verse = _loadedVerses[index];
+                  return Directionality(
+                    textDirection: LanguagePreferences.getLanguage(),
+                    child: HtmlWidget(verse.content),
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
