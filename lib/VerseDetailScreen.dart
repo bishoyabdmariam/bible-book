@@ -9,7 +9,8 @@ class VerseDetailScreen extends StatefulWidget {
   final String bibleBookID;
   final String bibleVerseID;
 
-  const VerseDetailScreen({super.key,
+  const VerseDetailScreen({
+    super.key,
     required this.bibleBookID,
     required this.bibleVerseID,
   });
@@ -29,7 +30,13 @@ class _VerseDetailScreenState extends State<VerseDetailScreen> {
 
   Future<VerseDetails> _getSelectedVerse() async {
     try {
-      return ApiService.getSelectedVerse(widget.bibleBookID, widget.bibleVerseID);
+      print(widget.bibleBookID);
+      print("A7A");
+      print(widget.bibleVerseID);
+      return ApiService.getSelectedVerse(
+        widget.bibleBookID,
+        widget.bibleVerseID,
+      );
     } catch (error) {
       throw error;
     }
@@ -39,7 +46,7 @@ class _VerseDetailScreenState extends State<VerseDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Verse Detail'),
+        title: const Text('Verse Caption'),
       ),
       body: FutureBuilder<VerseDetails>(
         future: _verse,

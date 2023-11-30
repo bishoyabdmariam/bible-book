@@ -77,7 +77,9 @@ class ApiService {
   }
 
   static Future<List<Chapter>> getChapters(
-      String bibleVersionID, String bibleBookID) async {
+    String bibleVersionID,
+    String bibleBookID,
+  ) async {
     final String apiUrl =
         '$baseUrl/$bibleVersionID/books/$bibleBookID/chapters';
     try {
@@ -108,7 +110,9 @@ class ApiService {
   }
 
   static Future<List<Section>> getSections(
-      String bibleVersionID, String bibleBookID) async {
+    String bibleVersionID,
+    String bibleBookID,
+  ) async {
     final String apiUrl =
         '$baseUrl/$bibleVersionID/books/$bibleBookID/sections';
     try {
@@ -180,12 +184,12 @@ class ApiService {
         print(data);
         return VerseDetails.fromJson(data);
       } else {
-        throw Exception('Failed to load selected verse: ${response.statusCode}');
+        throw Exception(
+            'Failed to load selected verse: ${response.statusCode}');
       }
     } catch (error) {
       print(error.toString());
       throw Exception('Error fetching selected verse: $error');
     }
   }
-
 }
