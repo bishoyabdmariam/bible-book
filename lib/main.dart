@@ -1,7 +1,7 @@
 import 'package:bible/service/apiService.dart';
 import 'package:flutter/material.dart';
 
-import 'BiblesListScreen.dart';
+import 'Screens/BiblesListScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

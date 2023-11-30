@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bible/service/apiService.dart';
 import 'BooksScreen.dart';
-import 'models/bible.dart';
+import '../models/bible.dart';
 
 class BibleListScreen extends StatefulWidget {
   const BibleListScreen({super.key, });

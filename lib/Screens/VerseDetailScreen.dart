@@ -1,9 +1,9 @@
 // verse_detail_screen.dart
 
 import 'package:bible/service/apiService.dart';
-import 'package:bible/versedetail.dart';
+import 'package:bible/Screens/versedetail.dart';
 import 'package:flutter/material.dart';
-import 'models/VerseDetails.dart';
+import '../models/VerseDetails.dart';
 
 class VerseDetailScreen extends StatefulWidget {
   final String bibleBookID;

@@ -1,4 +1,4 @@
-import 'models/bible.dart';
+import '../models/bible.dart';
 
 class VersionSorter {
   static Map<String, List<BibleVersion>> sortVersionsByLanguage(

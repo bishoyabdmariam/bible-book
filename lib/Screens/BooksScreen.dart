@@ -2,7 +2,7 @@ import 'package:bible/service/apiService.dart';
 import 'package:flutter/material.dart';
 
 import 'ChaptersScreen.dart';
-import 'models/book.dart';
+import '../models/book.dart';
 
 class BookListScreen extends StatefulWidget {
   final String bibleVersionID;

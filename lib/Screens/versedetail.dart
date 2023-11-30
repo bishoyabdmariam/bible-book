@@ -3,7 +3,7 @@
 import 'package:bible/service/apiService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'models/VerseDetails.dart';
+import '../models/VerseDetails.dart';
 
 class VerseDetail extends StatelessWidget {
   final VerseDetails verse;

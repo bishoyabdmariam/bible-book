@@ -1,7 +1,7 @@
 import 'package:bible/service/apiService.dart';
 import 'package:flutter/material.dart';
 import 'VersesScreen.dart';
-import 'models/section.dart'; // Import the VerseListScreen
+import '../models/section.dart'; // Import the VerseListScreen
 
 class SectionListScreen extends StatefulWidget {
   final String bibleVersionID;

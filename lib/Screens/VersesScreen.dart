@@ -1,4 +1,4 @@
-import 'package:bible/VerseDetailScreen.dart';
+import 'package:bible/Screens/VerseDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:bible/models/verse.dart'; // Import the updated Verse model
 import 'package:bible/service/apiService.dart';
