@@ -28,47 +28,46 @@ class _BibleListScreenState extends State<BibleListScreen> {
   Widget build(BuildContext context) {
     return bibleVersions.isEmpty
         ? const Center(
-      child: CircularProgressIndicator(),
-    )
+            child: CircularProgressIndicator(),
+          )
         : ListView.builder(
-      itemCount: bibleVersions.length,
-      itemBuilder: (context, index) {
-        final languageMap = bibleVersions[index].language;
-        final language = languageMap?['name'] ?? "Unknown Language";
-        final languageBibles = bibleVersions
-            .where((version) =>
-        version.language?['name'] == languageMap?['name'])
-            .toList();
-
-        return Card(
-          color: Colors.grey[200],
-          elevation: 2.0,
-          margin: const EdgeInsets.symmetric(
-              vertical: 8.0, horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Text(language),
-                subtitle: Text("Bibles in $language"),
-              ),
-              BibleVersionList(
-                bibleVersions: languageBibles,
-                onVersionSelected: (version) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => BookListScreen(
-                        bibleVersionID: version.id!,
-                      ),
+            itemCount: bibleVersions.length,
+            itemBuilder: (context, index) {
+              final languageMap = bibleVersions[index].language;
+              final language = languageMap?['name'] ?? "Unknown Language";
+              final languageBibles = bibleVersions
+                  .where((version) =>
+                      version.language?['name'] == languageMap?['name'])
+                  .toList();
+              return Card(
+                color: Colors.grey[200],
+                elevation: 2.0,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      title: Text(language),
+                      subtitle: Text("Bibles in $language"),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+                    BibleVersionList(
+                      bibleVersions: languageBibles,
+                      onVersionSelected: (version) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => BookListScreen(
+                              bibleVersionID: version.id!,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
   }
 }
 
