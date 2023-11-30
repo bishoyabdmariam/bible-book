@@ -54,15 +54,18 @@ class _VerseListScreenState extends State<VerseListScreen> {
               itemBuilder: (context, index) {
                 final verse = verseList[index];
                 return ListTile(
-                  title: Text(verse.reference!),
+                  title: Text(
+                    verse.reference!,
+                    textDirection: LanguagePreferences.getLanguage(),
+                  ),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-                    VerseDetailScreen(
-                      bibleBookID: widget.bibleVersionID,
-                      bibleVerseID: verse.id!,
-                    )
-                    // Implement your desired action when a verse is selected
-                    ));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => VerseDetailScreen(
+                              bibleBookID: widget.bibleVersionID,
+                              bibleVerseID: verse.id!,
+                            )
+                        // Implement your desired action when a verse is selected
+                        ));
                   },
                 );
               },

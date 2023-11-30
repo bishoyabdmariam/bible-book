@@ -16,6 +16,8 @@ class BookListScreen extends StatefulWidget {
 class _BookListScreenState extends State<BookListScreen> {
   List<Book> bookList = [];
 
+  TextDirection textDirection = LanguagePreferences.getLanguage();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +49,7 @@ class _BookListScreenState extends State<BookListScreen> {
                   child: ListTile(
                     title: Text(
                       book.name,
+                      textDirection:textDirection,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,

@@ -49,11 +49,13 @@ class _BibleListScreenState extends State<BibleListScreen> {
                   children: [
                     ListTile(
                       title: Text(language),
-                      subtitle: Text("Bibles in $language"),
+
                     ),
                     BibleVersionList(
                       bibleVersions: languageBibles,
                       onVersionSelected: (version) {
+                        version.scriptDirection=="LTR" ?
+                        LanguagePreferences.setLanguage(TextDirection.ltr) : LanguagePreferences.setLanguage(TextDirection.rtl);
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => BookListScreen(

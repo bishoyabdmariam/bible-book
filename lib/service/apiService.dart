@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:bible/versedetail.dart';
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/bible.dart';
@@ -8,6 +8,8 @@ import '../models/book.dart';
 import '../models/chapter.dart';
 import '../models/section.dart';
 import '../models/verse.dart'; // Add this import for Section model
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ApiService {
   static const String apiKey =
@@ -25,6 +27,7 @@ class ApiService {
         final List<dynamic> data = json.decode(response.body)['data'];
         return data.map((data) {
           return BibleVersion(
+            scriptDirection: data['scriptDirection'],
             name: data['name'],
             id: data['id'],
             description: data['description'],
@@ -191,5 +194,26 @@ class ApiService {
       print(error.toString());
       throw Exception('Error fetching selected verse: $error');
     }
+  }
+}
+
+
+
+
+class LanguagePreferences {
+  static late SharedPreferences _prefs;
+
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  static TextDirection getLanguage() {
+    String storedLanguage = _prefs.getString('languageDir') ?? 'LTR';
+    return storedLanguage == 'RTL' ? TextDirection.rtl : TextDirection.ltr;
+  }
+
+  static Future<void> setLanguage(TextDirection languageDirection) async {
+    String languageCode = languageDirection == TextDirection.rtl ? 'RTL' : 'LTR';
+    await _prefs.setString('languageDir', languageCode);
   }
 }

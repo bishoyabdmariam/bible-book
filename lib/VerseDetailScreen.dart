@@ -30,15 +30,12 @@ class _VerseDetailScreenState extends State<VerseDetailScreen> {
 
   Future<VerseDetails> _getSelectedVerse() async {
     try {
-      print(widget.bibleBookID);
-      print("A7A");
-      print(widget.bibleVerseID);
       return ApiService.getSelectedVerse(
         widget.bibleBookID,
         widget.bibleVerseID,
       );
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
