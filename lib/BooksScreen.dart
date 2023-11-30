@@ -6,9 +6,8 @@ import 'models/book.dart';
 
 class BookListScreen extends StatefulWidget {
   final String bibleVersionID;
-  final String abbreviation;
 
-  const BookListScreen({super.key, required this.bibleVersionID, required this.abbreviation,});
+  const BookListScreen({super.key, required this.bibleVersionID,});
 
   @override
   _BookListScreenState createState() => _BookListScreenState();
@@ -58,7 +57,6 @@ class _BookListScreenState extends State<BookListScreen> {
                         MaterialPageRoute(
                           builder: (context) => ChapterListScreen(
                             bibleVersionID: widget.bibleVersionID,
-                            abbreviation: widget.abbreviation,
                             bibleBookID:
                                 book.id, // Replace with the actual book ID
                           ),

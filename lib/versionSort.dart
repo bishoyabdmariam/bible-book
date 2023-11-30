@@ -1,4 +1,3 @@
-
 import 'models/bible.dart';
 
 class VersionSorter {
@@ -7,27 +6,20 @@ class VersionSorter {
     Map<String, List<BibleVersion>> sortedVersions = {};
 
     for (final version in bibleVersionList) {
-      if (!sortedVersions.containsKey(version.language)) {
-        sortedVersions[version.language!] = [];
+      final language = version.language!['name']!;
+      if (!sortedVersions.containsKey(language)) {
+        sortedVersions[language] = [];
       }
-      sortedVersions[version.language]!.add(version);
+      sortedVersions[language]!.add(version);
     }
 
     for (final languageGroup in sortedVersions.keys) {
       sortedVersions[languageGroup]!.sort((a, b) {
-        final nameA = a.abbreviation!.toUpperCase();
-        final nameB = b.abbreviation!.toUpperCase();
+        final nameA = a.name!.toUpperCase();
+        final nameB = b.name!.toUpperCase();
         return nameA.compareTo(nameB);
       });
     }
     return sortedVersions;
-  }
-
-  static List<String> getLanguages(List<BibleVersion> bibleVersionList) {
-    Set<String> languages = {};
-    for (final version in bibleVersionList) {
-      languages.add(version.language!);
-    }
-    return languages.toList();
   }
 }

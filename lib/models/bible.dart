@@ -1,14 +1,12 @@
 class BibleVersion {
   final String? name;
   final String? id;
-  final String? abbreviation;
   final String? description;
-  final String? language;
+  final Map<String, dynamic>? language;
 
   BibleVersion({
     required this.name,
     required this.id,
-    required this.abbreviation,
     required this.description,
     required this.language,
   });
@@ -17,10 +15,8 @@ class BibleVersion {
     return BibleVersion(
       name: json['name'],
       id: json['id'],
-      abbreviation: json['abbreviation'],
       description: json['description'],
-      language: json['language']['name'],
+      language: (json['language'] as Map<String, dynamic>?),
     );
   }
-
 }

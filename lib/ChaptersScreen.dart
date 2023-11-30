@@ -7,13 +7,11 @@ import 'models/chapter.dart';
 
 class ChapterListScreen extends StatefulWidget {
   final String bibleVersionID;
-  final String abbreviation;
   final String bibleBookID;
 
   const ChapterListScreen({
     super.key,
     required this.bibleVersionID,
-    required this.abbreviation,
     required this.bibleBookID,
   });
 

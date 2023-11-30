@@ -11,7 +11,7 @@ import '../models/verse.dart'; // Add this import for Section model
 
 class ApiService {
   static const String apiKey =
-      '6f48c25d67586da51a2c65f8899bceca'; // Replace with your actual API key
+      '350d5e25135cb0bae9b5465ee1e1c9ef'; // Replace with your actual API key
   static const String baseUrl = 'https://api.scripture.api.bible/v1/bibles';
 
   static Future<List<BibleVersion>> getBibleVersions() async {
@@ -27,9 +27,10 @@ class ApiService {
           return BibleVersion(
             name: data['name'],
             id: data['id'],
-            abbreviation: data['abbreviation'],
             description: data['description'],
-            language: data['language']['name'],
+            language: {
+              'name': data['language']['name'],
+            },
           );
         }).toList();
       } else {
